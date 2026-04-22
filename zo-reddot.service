@@ -1,0 +1,17 @@
+[Unit]
+Description=Filter TrackPoint motion (buttons only)
+Documentation=https://github.com/Jok0ne/zo-reddot
+After=multi-user.target systemd-udev-settle.service
+
+[Service]
+Type=simple
+Environment=TRACKPOINT_NAME=ETPS/2 Elantech TrackPoint
+ExecStart=/usr/bin/python3 /usr/local/bin/zo-reddot.py
+Restart=on-failure
+RestartSec=3
+# Needs /dev/input/event* and /dev/uinput — runs as root (no less-privileged
+# option because exclusive grab on the input device requires it).
+SupplementaryGroups=input
+
+[Install]
+WantedBy=multi-user.target
